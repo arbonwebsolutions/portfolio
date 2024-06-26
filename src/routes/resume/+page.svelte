@@ -36,33 +36,67 @@
 	});
 </script>
 
-<div class="flex flex-col items-center pt-16 min-h-screen bg-base-300">
-	<div class="flex flex-col w-[800px]">
-		<div class="flex flex-col">
+<div class="flex flex-col items-center p-4 min-h-screen text-xs md:text-sm lg:text-base">
+	<div class="flex flex-col sm:max-w-3xl">
+		<div class="flex flex-col gap-12">
 			{#each companies as company}
-				<div>
-					<div class="uppercase text-2xl">
-						{company.name}
-						-
-						{company.job_title}
-					</div>
-					{#each company.projects as project}
-						<div class="ml-8 mt-4 mb-12">
-							<div class="uppercase text-2xl">
-								{project.name}
-							</div>
-							<div>
-								{project.start_date.format('MMMM YYYY')} - {project.end_date.format('MMMM YYYY')}
-							</div>
-							<div class="flex flex-row">
-								{#each project.skills as skill}
-									<div class="uppercase mr-4 font-bold">{skill.name}</div>
-								{/each}
-							</div>
-
-							<div class=" whitespace-pre-wrap">{project.description}</div>
+				<div class="flex flex-col gap-2">
+					<div class="flex flex-col">
+						<div class="uppercase">
+							{company.name}
 						</div>
-					{/each}
+						<div class="text-xs text-primary ml-0">
+							{company.job_title}
+						</div>
+					</div>
+					<div class="flex flex-col gap-4">
+						{#each company.projects as project}
+							<div class="flex flex-row gap-2">
+								<div class="w-16 h-16 min-w-16">
+									{#if project.logo_base64}
+										<div
+											class="flex w-16 h-16 shadow bg-white text-nuetral rounded-box align-middle items-center justify-center p-2 border"
+										>
+											<img src={project.logo_base64} alt="logo" class="h-full" />
+										</div>
+									{/if}
+								</div>
+								<div class="flex flex-col gap-3 grow">
+									<div class="flex flex-row justify-between">
+										<div class=" grow">
+											<div class="uppercase font-bold">
+												{project.name}
+												{#if project.website}
+													<span class="lowercase ml-2">
+														(<a href={project.website} target="_blank" class="link link-primary"
+															>Website</a
+														>)
+													</span>
+												{/if}
+											</div>
+											<div>
+												{project.start_date.format('MMMM YYYY')} - {project.end_date.format(
+													'MMMM YYYY'
+												)}
+											</div>
+										</div>
+										<div>
+											<button class="btn btn-primary btn-sm">View</button>
+										</div>
+									</div>
+									{#if project.skills.length > 0}
+										<div class="flex flex-row flex-wrap text-xs lowercase gap-1">
+											{#each project.skills as skill}
+												<div class="badge badge-accent font-thin">{skill.name}</div>
+											{/each}
+										</div>
+									{/if}
+
+									<div class="whitespace-pre-wrap">{project.description}</div>
+								</div>
+							</div>
+						{/each}
+					</div>
 				</div>
 			{/each}
 		</div>
