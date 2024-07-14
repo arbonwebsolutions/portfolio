@@ -6,7 +6,13 @@
 	import SquareLogo from '$lib/components/SquareLogo.svelte';
 
 	$: ({ supabase, session, companies } = data);
+
+	const year = moment().format('yyyy');
 </script>
+
+<svelte:head>
+	<title>Tyler Arbon's Resume {year}</title>
+</svelte:head>
 
 <div class="flex flex-col items-center p-4 min-h-screen text-xs md:text-sm lg:text-base">
 	<div class="flex flex-col sm:max-w-3xl">

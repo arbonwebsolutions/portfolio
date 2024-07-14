@@ -81,4 +81,18 @@ const authGuard: Handle = async ({ event, resolve }) => {
 	return resolve(event);
 };
 
-export const handle: Handle = sequence(supabase, authGuard);
+const canonical: Handle = ({ event, resolve }) => {
+	const { url } = event;
+	let { hostname } = url;
+	hostname = hostname.replace(/^www\./, '');
+	console.log(url);
+	return resolve(event, {
+		transformPageChunk: ({ html }) =>
+			html.replace(
+				'%canonical%',
+				'<link rel="canonical" href="https://' + hostname + url.pathname + '" />'
+			)
+	});
+};
+
+export const handle: Handle = sequence(supabase, authGuard, canonical);
