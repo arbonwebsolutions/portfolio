@@ -38,8 +38,9 @@
 	>
 		<div class="navbar max-w-3xl p-0 mx-auto justify-between font-semibold">
 			<div class="flex flex-row gap-4">
-				<a href="/" class=" inline-flex sm:hidden text-lg">TA</a>
-				<a href="/" class=" hidden sm:inline-flex text-lg">Tyler Arbon</a>
+				<a href="/" class=" inline-flex sm:hidden text-lg">AWS</a>
+				<a href="/" class=" hidden sm:inline-flex text-lg">Arbon Web Solutions</a>
+				<a href="/resume">Resume</a>
 				{#if session !== null}
 					<a href="/user" class="">Profile</a>
 				{/if}

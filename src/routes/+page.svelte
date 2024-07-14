@@ -1,12 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { goto } from '$app/navigation';
-	import { redirect } from '@sveltejs/kit';
-	if (browser) {
-		goto('/resume');
-	} else {
-		redirect(307, '/resume');
-	}
 </script>
 
 <div class="hero min-h-screen bg-base-300">

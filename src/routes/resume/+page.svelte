@@ -3,42 +3,31 @@
 
 	import { page } from '$app/stores';
 	import moment from 'moment';
+	import SquareLogo from '$lib/components/SquareLogo.svelte';
 
-	let companies = [];
-	let { supabase, session } = data;
-	$: ({ supabase, session } = data);
-
-	page.subscribe(async () => {
-		let { data, error } = await supabase.from('companies').select('*,projects(*,skills(*))');
-
-		console.log({ data, error });
-
-		data.forEach((company) => {
-			company.projects.forEach((project) => {
-				project.start_date = moment(project.start_date);
-				project.end_date = project.end_date ? moment(project.end_date) : moment();
-
-				company.start_date =
-					!company.start_date || project.start_date.unix() < company.start_date.unix()
-						? project.start_date
-						: company.start_date;
-				company.end_date =
-					!company.end_date || project.end_date.unix() < company.end_date.unix()
-						? project.end_date
-						: company.end_date;
-			});
-		});
-
-		data.sort((a, b) => {
-			return a.start_date.unix() > b.start_date.unix() ? -1 : 1;
-		});
-		companies = [...data];
-	});
+	$: ({ supabase, session, companies } = data);
 </script>
 
 <div class="flex flex-col items-center p-4 min-h-screen text-xs md:text-sm lg:text-base">
 	<div class="flex flex-col sm:max-w-3xl">
 		<div class="flex flex-col gap-12">
+			<div class="flex flex-row justify-between items-center gap-12">
+				<div class="flex flex-col gap-2">
+					<div class="text-3xl">Tyler Arbon</div>
+					<div>
+						Web Developer looking for a position at a prominent tech company where I can use my 12+
+						years of professional development experience to improve the people that I work with, the
+						infrastructure that is established, and the company as a whole.
+					</div>
+				</div>
+				<div class="">
+					<img
+						class="min-w-[256px] max-w-[256px] rounded-lg"
+						alt="Profile"
+						src="https://gravatar.com/avatar/50d206498a891942841315d05c48c584?size=256&cache=1720990986713"
+					/>
+				</div>
+			</div>
 			{#each companies as company}
 				<div class="flex flex-col gap-2">
 					<div class="flex flex-col">
@@ -52,15 +41,7 @@
 					<div class="flex flex-col gap-4">
 						{#each company.projects as project}
 							<div class="flex flex-row gap-2">
-								<div class="w-16 h-16 min-w-16">
-									{#if project.logo_base64}
-										<div
-											class="flex w-16 h-16 shadow bg-white text-nuetral rounded-box align-middle items-center justify-center p-2 border"
-										>
-											<img src={project.logo_base64} alt="logo" class="h-full" />
-										</div>
-									{/if}
-								</div>
+								<SquareLogo src={project.logo_base64} />
 								<div class="flex flex-col gap-3 grow">
 									<div class="flex flex-row justify-between">
 										<div class=" grow">
@@ -81,7 +62,7 @@
 											</div>
 										</div>
 										<div>
-											<button class="btn btn-primary btn-sm">View</button>
+											<a class="btn btn-primary btn-sm" href="resume/{project.id}">View</a>
 										</div>
 									</div>
 									{#if project.skills.length > 0}
