@@ -8,6 +8,7 @@ export default {
   plugins: [require('daisyui')],
   daisyui: {
     themes: [
+      "night",
       "cupcake",
       "dark",
       "light",
@@ -34,7 +35,6 @@ export default {
       "business",
       "acid",
       "lemonade",
-      "night",
       "coffee",
       "winter",
       "dim",

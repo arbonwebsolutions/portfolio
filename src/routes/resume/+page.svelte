@@ -4,6 +4,7 @@
 	import { page } from '$app/stores';
 	import moment from 'moment';
 	import SquareLogo from '$lib/components/SquareLogo.svelte';
+	import AnimatedBackground from '$lib/components/AnimatedBackground.svelte';
 
 	$: ({ supabase, session, companies } = data);
 
@@ -14,9 +15,10 @@
 	<title>Tyler Arbon's Resume {year}</title>
 </svelte:head>
 
-<div class="flex flex-col items-center p-4 min-h-screen text-xs md:text-sm lg:text-base">
+<div class="flex flex-col items-center py-12 px-4 min-h-screen text-xs md:text-sm lg:text-base">
 	<div class="flex flex-col sm:max-w-3xl">
 		<div class="flex flex-col gap-12">
+			<AnimatedBackground />
 			<div class="flex flex-row justify-between items-center gap-12">
 				<div class="flex flex-col gap-2">
 					<div class="text-3xl">Tyler Arbon</div>
